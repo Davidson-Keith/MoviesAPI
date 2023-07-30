@@ -20,7 +20,7 @@ namespace MoviesAPI.Controllers {
     [HttpGet] // api/genres
     [HttpGet("all")] // api/genres/all
     // Can override the base route
-    [HttpGet("/allgenres")] // allgenres
+    [HttpGet("/all-genres")] // allgenres
     public ActionResult<List<Genre>> Get() {
       return repository.GetAllGenres();
     }
