@@ -1,7 +1,10 @@
 {
-  "notes1": "VS appears to be ignoring all these port numbers?!",
+  "notes1": "VS for macOS appears to be ignoring all these port numbers?!",
   "notes2": "Is VS even using these launchSettings at all?!",
   "notes3": "",
+  "notes4": "NB: Switching to JetBrains Rider, and quitting VS for macOS fixed this, and now ",
+  "notes5": "the ports below ARE used.",
+  "notes6": "",
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,

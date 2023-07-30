@@ -13,14 +13,14 @@ namespace MoviesAPI.Services {
       };
     }
 
-    public List<Genre> GetAllGenres() {
+    // When using async keyword, return type has to be wrapped in Task<T>.
+    public async Task<List<Genre>> GetAllGenres() {
+      await Task.Delay(1);
       return _genres;
     }
 
-    public Genre GetGenreById(int Id) {
+    public async Task<Genre> GetGenreById(int Id) {
       return _genres.FirstOrDefault(x => x.Id == Id);
     }
-
   }
 }
-

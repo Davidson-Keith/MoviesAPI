@@ -4,8 +4,9 @@ using MoviesAPI.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MoviesAPI.Controllers {
-  [ApiController]
+  // base route
   [Route("api/genres")] // alternately, can use [Route("api/[Controller]")], however this will break clients if we change the class name.
+  [ApiController]
   public class GenresController : ControllerBase {
     private readonly ILogger<GenresController> _logger;
     private readonly IRepository repository;
@@ -15,30 +16,40 @@ namespace MoviesAPI.Controllers {
       this.repository = repository;
     }
 
-    [HttpGet]
-    public List<Genre> Get() {
+    // Can use multiple routes
+    [HttpGet] // api/genres
+    [HttpGet("all")] // api/genres/all
+    // Can override the base route
+    [HttpGet("/allgenres")] // allgenres
+    public ActionResult<List<Genre>> Get() {
       return repository.GetAllGenres();
     }
 
-    [HttpGet]
-    public Genre Get(int Id) {
-      var genre = repository.GetGenreById(Id);
+    [HttpGet("{id:int}")] // With type constraint, will "404 Not Found" if wrong type e.g. api/genres/1
+    // [HttpGet("{id}")] // with no type constraint. Will "400 Bad Request" if wrong type.
+    // [HttpGet("{id}/{param2}")] // with 2 required parameters, e.g. api/genres/2/hi
+    // [HttpGet("{id}/{param2=test}")] // with a default value e.g. api/genres/1 or api/genres/2/hi
+    public ActionResult<Genre> Get(int id) {
+      var genre = repository.GetGenreById(id);
       if (genre == null) {
-        //return NotFound();
+        return NotFound();
       }
       return genre;
     }
 
     [HttpPost]
-    public void Post() {
+    public ActionResult Post() {
+      return NoContent();
     }
 
     [HttpPut]
-    public void Put() {
+    public ActionResult Put() {
+      return NoContent();
     }
 
     [HttpDelete]
-    public void Delete() {
+    public ActionResult Delete() {
+      return NoContent();
     }
   }
 }
