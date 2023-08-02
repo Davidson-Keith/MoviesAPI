@@ -2,6 +2,7 @@
 using MoviesAPI.Services;
 using MoviesAPI.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MoviesAPI.Controllers {
   // base route
@@ -21,24 +22,27 @@ namespace MoviesAPI.Controllers {
     [HttpGet("all")] // api/genres/all
     // Can override the base route
     [HttpGet("/all-genres")] // allgenres
-    public ActionResult<List<Genre>> Get() {
-      return repository.GetAllGenres();
+    public async Task<ActionResult<List<Genre>>> Get() {
+      return await repository.GetAllGenres();
     }
 
-    [HttpGet("{id:int}")] // With type constraint, will "404 Not Found" if wrong type e.g. api/genres/1
-    // [HttpGet("{id}")] // with no type constraint. Will "400 Bad Request" if wrong type.
-    // [HttpGet("{id}/{param2}")] // with 2 required parameters, e.g. api/genres/2/hi
-    // [HttpGet("{id}/{param2=test}")] // with a default value e.g. api/genres/1 or api/genres/2/hi
-    public ActionResult<Genre> Get(int id) {
+    [HttpGet("{id:int}")] // With type constraint, will "404 Not Found" if wrong type. E.g. api/genres/1
+    // [HttpGet("{id}")] // With no type constraint. Will "400 Bad Request" if can't find value (thus also if wrong type).
+    // [HttpGet("{id}/{param2}")] // With 2 required parameters. E.g. api/genres/2/hi
+    // [HttpGet("{id}/{param2=test}")] // With a default value. E.g. api/genres/1 or api/genres/2/hi
+    public async Task<ActionResult<Genre>> Get(int id, string param2) {
+      if (!ModelState.IsValid) {
+        return BadRequest(ModelState);
+      }
       var genre = repository.GetGenreById(id);
       if (genre == null) {
         return NotFound();
       }
-      return genre;
+      return await genre;
     }
 
     [HttpPost]
-    public ActionResult Post() {
+    public ActionResult Post([FromBody] Genre genre) {
       return NoContent();
     }
 

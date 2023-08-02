@@ -20,6 +20,7 @@ namespace MoviesAPI.Services {
     }
 
     public async Task<Genre> GetGenreById(int Id) {
+      await Task.Delay(1);
       return _genres.FirstOrDefault(x => x.Id == Id);
     }
   }

@@ -3,8 +3,8 @@ using MoviesAPI.Entities;
 
 namespace MoviesAPI.Services {
   public interface IRepository {
-    List<Genre> GetAllGenres();
-    Genre GetGenreById(int Id);
+    Task<List<Genre>> GetAllGenres();
+    Task<Genre> GetGenreById(int Id);
   }
 }
 
