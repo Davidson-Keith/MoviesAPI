@@ -1,8 +1,6 @@
-﻿using System;
-using MoviesAPI.Services;
+﻿using MoviesAPI.Services;
 using MoviesAPI.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MoviesAPI.Controllers {
   // base route
@@ -31,9 +29,10 @@ namespace MoviesAPI.Controllers {
     // [HttpGet("{id}/{param2}")] // With 2 required parameters. E.g. api/genres/2/hi
     // [HttpGet("{id}/{param2=test}")] // With a default value. E.g. api/genres/1 or api/genres/2/hi
     public async Task<ActionResult<Genre>> Get(int id, string param2) {
-      if (!ModelState.IsValid) {
-        return BadRequest(ModelState);
-      }
+      // This is not required because the [ApiController] attribute indicates to do all the validation automatically.
+      // if (!ModelState.IsValid) {
+      //   return BadRequest(ModelState);
+      // }
       var genre = repository.GetGenreById(id);
       if (genre == null) {
         return NotFound();
