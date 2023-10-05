@@ -4,7 +4,7 @@ using MoviesAPI.Services;
 namespace MoviesAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]")] // Translates to "Weatherforecast", taken from "WeatherforecastController"
 public class WeatherForecastController : ControllerBase {
   private static readonly string[] Summaries = new[] {
         "1Freezing", "1Bracing", "1Chilly", "1Cool"
@@ -16,7 +16,12 @@ public class WeatherForecastController : ControllerBase {
     _logger = logger;
   }
 
-  [HttpGet(Name = "GetWeatherForecast")] // WTF does this do?! This URL doesn't work.
+  // Just the base route. "Name" isn't a URL, it is a name. What is it for? Inserting a named value?
+  [HttpGet(Name = "GetWeatherForecast")]  // WeatherForecast (http://localhost:5233/WeatherForecast)
+  // Prepend the base route
+  // [HttpGet("GetWeatherForecast")] // Weatherforecast/GetWeatherforecast 
+  // Override the base route
+  // [HttpGet("/GetWeatherForecast")] // GetWeatherForecast 
   public IEnumerable<WeatherForecast> Get() {
     return Enumerable.Range(1, 5).Select(index => new WeatherForecast {
       Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
