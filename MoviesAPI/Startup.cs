@@ -1,5 +1,4 @@
 using Microsoft.OpenApi.Models;
-using MoviesAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MoviesAPI.Filters;
 
@@ -16,14 +15,7 @@ namespace MoviesAPI {
       services.AddControllers(options => {
         options.Filters.Add(typeof(MyExceptionFilter));
       });
-      services.AddResponseCaching();
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-      services.AddTransient<MyActionFilter>();
-      
-      // AddSingleton = singleton.
-      // AddTransient = new object every request.
-      // AddScoped = new object per http request (not per session, but maybe there is an option for that too).
-      services.AddSingleton<IRepository, InMemoryRepository>();
       
       // services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" }); });
     }
@@ -37,10 +29,11 @@ namespace MoviesAPI {
       }
       app.UseHttpsRedirection();
       app.UseRouting();
-      app.UseResponseCaching();
       app.UseAuthentication();
       app.UseAuthorization();
-      app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+      app.UseEndpoints(endpoints => {
+        endpoints.MapControllers();
+      });
     }
   }
 }
