@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using MoviesAPI.Filters;
 
 namespace MoviesAPI {
@@ -12,12 +13,23 @@ namespace MoviesAPI {
     
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services) {
+      services.AddDbContext<ApplicationDbContext>(options => {
+        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); // From appsettings.*.json
+      });
+      
       services.AddControllers(options => {
         options.Filters.Add(typeof(MyExceptionFilter));
       });
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
       
       // services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" }); });
+
+      services.AddCors(options => {
+        var frontendUrl = Configuration.GetValue<string>("frontend_url");
+        options.AddDefaultPolicy(builder => {
+          builder.WithOrigins(frontendUrl).AllowAnyMethod().AllowAnyHeader();
+        });
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +41,7 @@ namespace MoviesAPI {
       }
       app.UseHttpsRedirection();
       app.UseRouting();
+      app.UseCors();
       app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(endpoints => {
