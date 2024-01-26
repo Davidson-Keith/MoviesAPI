@@ -25,11 +25,13 @@ namespace MoviesAPI {
       // services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" }); });
 
       services.AddCors(options => {
-        var frontendUrl = Configuration.GetValue<string>("frontend_url");
         options.AddDefaultPolicy(builder => {
+          var frontendUrl = Configuration.GetValue<string>("frontend_url");
           builder.WithOrigins(frontendUrl).AllowAnyMethod().AllowAnyHeader();
         });
       });
+
+      services.AddAutoMapper(typeof(Startup));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
