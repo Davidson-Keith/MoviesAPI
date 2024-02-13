@@ -1,3 +1,6 @@
+// start with git c880365f - 16/11/2023
+// add MoviesAPI from git 1c3858e8 - 30/1/2024 
+// Now working!!!
 {
   "notes1": "VS for macOS appears to be ignoring all these port numbers?!",
   "notes2": "Is VS even using these launchSettings at all?!",
@@ -18,8 +21,8 @@
     "MoviesAPI": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
+//      "launchBrowser": true,
+//      "launchUrl": "swagger",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -27,9 +30,19 @@
     },
     "http": {
       "commandName": "Project",
-      "commentedOut1": "\"launchBrowser\": true, x",
-      "commentedOut2": "\"launchUrl\": \"swagger\",",
-      "commentedOut3": "https://localhost:7242;http://localhost:5233",
+//      "launchBrowser": true,
+//      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5233",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    },
+    "https": {
+      "commandName": "Project",
+//      "launchBrowser": true,
+//      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7242;http://localhost:5233",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
