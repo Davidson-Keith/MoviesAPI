@@ -9,7 +9,8 @@ using MoviesAPI.DTOs;
 
 namespace MoviesAPI.Controllers {
   // base route
-  [Route("api/genres/{genreCreationDTO}")] // alternately, can use [Route("api/[Controller]")], however this will break clients if we change the class name.
+  [Route("api/genres")]
+  // [Route("api/genres/{genreCreationDTO}")] // alternately, can use [Route("api/[Controller]")], however this will break clients if we change the class name.
   [ApiController]
   [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalse")]
   public class GenresController : ControllerBase {
