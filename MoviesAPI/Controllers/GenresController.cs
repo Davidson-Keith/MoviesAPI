@@ -28,7 +28,7 @@ namespace MoviesAPI.Controllers {
     [HttpGet("all")] // api/genres/all
     public async Task<ActionResult<List<GenreDto>>> Get() {
       logger.LogDebug("Return all genres");
-      
+
       // Return the GenresDTO from the DB as a list
       var genres = await dbContext.Genres.ToListAsync();
       return mapper.Map<List<GenreDto>>(genres);
@@ -45,15 +45,17 @@ namespace MoviesAPI.Controllers {
       // Return the GenreDTO with the given ID
       var genre = dbContext.Genres.Find(id);
       return mapper.Map<ActionResult<Genre>>(genre);
-      
+
       // throw new NotImplementedException();
     }
-  
+
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] GenreCreationDto genreCreationDto) {
+    // public async Task<ActionResult<List<GenreDto>>> Post([FromBody] GenreCreationDto genreCreationDto) {
       // Write new genreCreationDto object to DB. DB creates the Id.
       dbContext.Genres.Add(mapper.Map<Genre>(genreCreationDto));
       await dbContext.SaveChangesAsync();
+      // return await Get();
       return NoContent();
     }
 
@@ -68,4 +70,3 @@ namespace MoviesAPI.Controllers {
     }
   }
 }
-
