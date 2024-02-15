@@ -52,6 +52,7 @@ namespace MoviesAPI {
       app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+      // app.UseHttpLogging();
     }
   }
 }
