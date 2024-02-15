@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using MoviesAPI.APIBehavoir;
 using MoviesAPI.Filters;
 
 namespace MoviesAPI {
@@ -17,7 +18,11 @@ namespace MoviesAPI {
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); // From appsettings.*.json
       });
 
-      services.AddControllers(options => { options.Filters.Add(typeof(MyExceptionFilter)); });
+      services.AddControllers(options => {
+        options.Filters.Add(typeof(MyExceptionFilter));
+        options.Filters.Add(typeof(ParseBadRequestFilter));
+      }).ConfigureApiBehaviorOptions(BadRequestBehavoir.Parse);
+      
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
       // services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" }); });

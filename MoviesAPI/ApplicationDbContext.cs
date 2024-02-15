@@ -8,5 +8,5 @@ public class ApplicationDbContext: DbContext {
   public ApplicationDbContext([NotNull]DbContextOptions options) : base(options) {
   }
   
-  public DbSet<Genre?> Genres { get; set; }
+  public DbSet<Genre> Genres { get; set; }
 }
