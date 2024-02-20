@@ -27,7 +27,7 @@ namespace MoviesAPI.Controllers {
     [HttpGet] // api/genres
     [HttpGet("all")] // api/genres/all
     public async Task<ActionResult<List<GenreDto>>> Get() {
-      logger.LogDebug("Return all genres");
+      logger.LogDebug("HttpGet all : Return all genres");
 
       // Return the GenresDTO from the DB as a list
       var genres = await dbContext.Genres.ToListAsync();

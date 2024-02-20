@@ -9,7 +9,8 @@ namespace MoviesAPI.Filters;
  * A Filter to filter the execution of an Action in the case of a 400 Bad Request.
  * An Action being a call to Get/Post etc in our Controller, called by the front end.
  * 
- * This class is added by Startup as a controller filter service.
+ * This class is added by Startup as a controller filter service. It is thus called when any action is called by any
+ * Controller.
  *
  * This class implements IActionFilter, thus will process OnActionExecuted/OnActionExecuting, and ASP.NET will give us
  * an ActionExecutedContext object as a parameter to the method.
@@ -24,14 +25,21 @@ namespace MoviesAPI.Filters;
  */
 public class ParseBadRequestFilter : IActionFilter {
   // private ILogger<Startup> logger = ApplicationDbContext.; // How do I use logging ???
-  
+  private readonly ILogger<ParseBadRequestFilter> logger;
+
+  public ParseBadRequestFilter(ILogger<ParseBadRequestFilter> logger) {
+    this.logger = logger;
+  }
+
   public void OnActionExecuting(ActionExecutingContext context) {
+    logger.LogDebug("OnActionExecuting called ");
   }
 
   /**
    * Return a List of all the errors rather than just the first one, giving the front end all the errors at once.
    */
   public void OnActionExecuted(ActionExecutedContext context) {
+    logger.LogDebug("OnActionExecuted called ");
     // context.Result is an IActionResult, and might be a BadRequestObjectResult if it is a 400 Bad Request.
     // Inheritance: Object -> ActionResult -> ObjectResult -> BadRequestObjectResult
     // ActionResult implements IActionResult
@@ -47,6 +55,7 @@ public class ParseBadRequestFilter : IActionFilter {
     }
     
     var statusCode = statusCodeActionResult.StatusCode;
+    logger.LogDebug("OnActionExecuted: statusCode = ?");
     if (statusCode == 400) {
       // Initialise the response that will be a List of the error messages to send back to the front end.
       var response = new List<string>(); 

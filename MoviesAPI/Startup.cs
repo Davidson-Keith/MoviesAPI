@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using MoviesAPI.APIBehavoir;
+using MoviesAPI.APIBehavior;
 using MoviesAPI.Filters;
 
 namespace MoviesAPI {
@@ -21,7 +21,7 @@ namespace MoviesAPI {
       services.AddControllers(options => {
         options.Filters.Add(typeof(MyExceptionFilter));
         options.Filters.Add(typeof(ParseBadRequestFilter));
-      }).ConfigureApiBehaviorOptions(BadRequestBehavoir.Parse);
+      }).ConfigureApiBehaviorOptions(BadRequestBehavior.Parse);
       
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
