@@ -21,7 +21,7 @@
     "MoviesAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:5233;https://localhost:5234",
+      "applicationUrl": "http://localhost:5233;https://localhost:5234",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
