@@ -45,8 +45,6 @@ namespace MoviesAPI.Controllers {
       // Return the GenreDTO with the given ID
       var genre = dbContext.Genres.Find(id);
       return mapper.Map<ActionResult<Genre>>(genre);
-
-      // throw new NotImplementedException();
     }
 
     [HttpPost]
