@@ -3,6 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using MoviesAPI.Validations;
 
 namespace MoviesAPI.Entities {
+  /**
+   * This is the raw data type stored in the DB.
+   * Validations are for the DB requirements???
+   */
   public class Genre {
     public int Id { get; set; }
 
