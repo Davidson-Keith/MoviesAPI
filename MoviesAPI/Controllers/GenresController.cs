@@ -47,6 +47,9 @@ namespace MoviesAPI.Controllers {
       logger.LogDebug("HttpGet getGenre : Return genre with given id");
       // Return the GenreDTO with the given ID
       var genre = await dbContext.Genres.FindAsync(id);
+      if (genre == null) {
+        logger.LogDebug($"Genre with {id} not found");
+      }
       return mapper.Map<ActionResult<Genre>>(genre);
     }
 

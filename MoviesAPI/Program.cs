@@ -15,7 +15,12 @@ namespace MoviesAPI {
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
       Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        .ConfigureWebHostDefaults(webBuilder => {
+          // webBuilder.ConfigureLogging(loggingBuilder => {
+          //   loggingBuilder.AddProvider()
+          // });
+          webBuilder.UseStartup<Startup>();
+        });
   }
 }
 
