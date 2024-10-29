@@ -44,6 +44,7 @@ namespace MoviesAPI.Controllers {
 
     [HttpGet("{id:int}", Name = "getGenre")] // E.g. api/genres/1
     public async Task<ActionResult<Genre>> Get(int id) {
+      logger.LogDebug("HttpGet getGenre : Return genre with given id");
       // Return the GenreDTO with the given ID
       var genre = await dbContext.Genres.FindAsync(id);
       return mapper.Map<ActionResult<Genre>>(genre);
@@ -56,6 +57,7 @@ namespace MoviesAPI.Controllers {
     [HttpGet("byName")] // E.g. api/genres/byName?name=Drama
     // [HttpGet("byName/{name}")] // E.g. api/genres/byName/Drama - This type of overloading doesn't work
     public async Task<ActionResult<List<GenreDto>>> GetByName(string name) {
+      logger.LogDebug("HttpGet byName : Return genre with given name");
       // Return as a single. This works, but requires a different method return type - Task<ActionResult<Genre>>
       // var genre = await dbContext.Genres.FirstAsync(genre => genre.Name.Equals(name)); 
       // return mapper.Map<Genre>(genre);
@@ -68,6 +70,7 @@ namespace MoviesAPI.Controllers {
 
     [HttpGet("test")] // api/genres/test
     public ActionResult GetTest() {
+      logger.LogDebug("HttpGet test : Return \"Test ok\"");
       return Ok("Test ok");
     }
 
@@ -75,6 +78,7 @@ namespace MoviesAPI.Controllers {
     // ignore the parameter
     [HttpGet("test/{message}")] // E.g. api/genres/test/hi-there
     public ActionResult<string> Get(string message) {
+      logger.LogDebug("HttpGet test : Return given message");
       // if (message.IsNullOrEmpty()) {
       //   return Ok("Message null or empty"); //This never gets here. With GetTest() removed, returns 404. With GetTest(), it routes to that instead.
       // }
@@ -85,6 +89,7 @@ namespace MoviesAPI.Controllers {
     // NB: to use the params in the ?id=3... format, then DON'T put the params in the template. 
     [HttpGet("multi")] // E.g. api/genres/multi?id=3&message=hi-there
     public ActionResult<string> Get(int id, string message) {
+      logger.LogDebug("HttpGet multi : Return given id and message");
       return Ok($"ID = {id}, Message = {message}");
     }
     // --------------

@@ -17,7 +17,7 @@ namespace MoviesAPI {
       services.AddDbContext<ApplicationDbContext>(options => {
         options
           .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))//; // From appsettings.*.json
-          .EnableSensitiveDataLogging() // Disable for production
+          // .EnableSensitiveDataLogging() // Disable for production
           .LogTo(
             Console.WriteLine,
             new[] { DbLoggerCategory.Database.Command.Name },
