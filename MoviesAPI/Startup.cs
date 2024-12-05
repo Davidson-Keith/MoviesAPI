@@ -31,6 +31,9 @@ namespace MoviesAPI {
       
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
+      // Remove in final code - part of: 113 Filters
+      services.AddResponseCaching();
+
       // services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" }); });
 
       services.AddCors(options => {
@@ -127,6 +130,7 @@ namespace MoviesAPI {
 
       app.UseHttpsRedirection();
       app.UseRouting();
+      app.UseResponseCaching(); // 113. Filters - remove from final code
       app.UseCors();
       app.UseAuthentication();
       app.UseAuthorization();

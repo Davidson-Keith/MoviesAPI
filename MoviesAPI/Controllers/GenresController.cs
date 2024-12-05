@@ -28,6 +28,7 @@ namespace MoviesAPI.Controllers {
 
     [HttpGet] // api/genres
     [HttpGet("all")] // api/genres/all
+    [ResponseCache(Duration = 60)] // 113 Filters - remove from code
     public async Task<ActionResult<List<GenreDto>>> Get() {
       logger.LogDebug("HttpGet all : Return all genres");
 
