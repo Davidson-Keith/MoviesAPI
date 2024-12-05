@@ -15,6 +15,7 @@ namespace MoviesAPI.Controllers {
   // [Route("api/genres/{genreCreationDTO}")] // alternately, can use [Route("api/[Controller]")], however this will break clients if we change the class name.
   [ApiController]
   [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalse")]
+  // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] // 113 Filters - remove from code
   public class GenresController : ControllerBase {
     private readonly ILogger<GenresController> logger;
     private readonly ApplicationDbContext dbContext;
@@ -28,7 +29,8 @@ namespace MoviesAPI.Controllers {
 
     [HttpGet] // api/genres
     [HttpGet("all")] // api/genres/all
-    [ResponseCache(Duration = 60)] // 113 Filters - remove from code
+    [ResponseCache(Duration = 20)] // 113 Filters - remove from code
+    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] // 113 Filters - remove from code
     public async Task<ActionResult<List<GenreDto>>> Get() {
       logger.LogDebug("HttpGet all : Return all genres");
 
