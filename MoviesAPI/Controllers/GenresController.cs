@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Expressions;
 using MoviesAPI.DTOs;
+using MoviesAPI.Filters;
 
 namespace MoviesAPI.Controllers {
   // base route
@@ -29,8 +30,9 @@ namespace MoviesAPI.Controllers {
 
     [HttpGet] // api/genres
     [HttpGet("all")] // api/genres/all
-    [ResponseCache(Duration = 20)] // 113 Filters - remove from code
+    // [ResponseCache(Duration = 20)] // 113 Filters - remove from code
     // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] // 113 Filters - remove from code
+    [ServiceFilter(typeof(MyActionFilter))]
     public async Task<ActionResult<List<GenreDto>>> Get() {
       logger.LogDebug("HttpGet all : Return all genres");
 
@@ -46,6 +48,7 @@ namespace MoviesAPI.Controllers {
     }
 
     [HttpGet("{id:int}", Name = "getGenre")] // E.g. api/genres/1
+    [ServiceFilter(typeof(MyActionFilter))]
     public async Task<ActionResult<Genre>> Get(int id) {
       logger.LogDebug("HttpGet getGenre : Return genre with given id");
       // Return the GenreDTO with the given ID
@@ -104,6 +107,7 @@ namespace MoviesAPI.Controllers {
 
 
     [HttpPost]
+    [ServiceFilter(typeof(MyActionFilter))]
     public async Task<ActionResult> Post([FromBody] GenreCreationDto genreCreationDto) {
       // public async Task<ActionResult<List<GenreDto>>> Post([FromBody] GenreCreationDto genreCreationDto) {
       // Write new genreCreationDto object to DB. DB creates the Id.

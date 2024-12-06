@@ -16,4 +16,8 @@ public class GenreCreationDto {
   [StringLength(maximumLength: 50, MinimumLength = 2)] // max + min length. Note the bizarre inconsistencies!
   [FirstLetterUppercase] // Our custom MoviesAPI.Validations.FirstLetterUppercaseAttribute validation
   public string Name { get; set; }
+
+  public override string ToString() {
+    return $"GenreCreationDto: Name = {Name}";
+  }
 }
