@@ -35,7 +35,7 @@ namespace MoviesAPI {
       // services.AddResponseCaching();
 
       // Remove in final code - part of: 114 Custom Filters
-      services.AddTransient<MyActionFilter>();
+      services.AddTransient<MyLogActionFilter>();
 
       // services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" }); });
 
