@@ -32,14 +32,14 @@ public class ParseBadRequestFilter : IActionFilter {
   }
 
   public void OnActionExecuting(ActionExecutingContext context) {
-    logger.LogDebug("OnActionExecuting called ");
+    logger.LogDebug("ParseBadRequestFilter.OnActionExecuting called ");
   }
 
   /**
    * Return a List of all the errors rather than just the first one, giving the front end all the errors at once.
    */
   public void OnActionExecuted(ActionExecutedContext context) {
-    logger.LogDebug("OnActionExecuted called ");
+    logger.LogDebug("ParseBadRequestFilter.OnActionExecuted called ");
     // context.Result is an IActionResult, and might be a BadRequestObjectResult if it is a 400 Bad Request.
     // Inheritance: Object -> ActionResult -> ObjectResult -> BadRequestObjectResult
     // ActionResult implements IActionResult
@@ -55,7 +55,7 @@ public class ParseBadRequestFilter : IActionFilter {
     }
     
     var statusCode = statusCodeActionResult.StatusCode;
-    logger.LogDebug("OnActionExecuted: statusCode = ?");
+    logger.LogDebug("ParseBadRequestFilter.OnActionExecuted: statusCode = ?");
     if (statusCode == 400) {
       // Initialise the response that will be a List of the error messages to send back to the front end.
       var response = new List<string>(); 
